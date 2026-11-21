@@ -41,3 +41,23 @@ Esta bitácora registra cómo trabajaste con el agente durante el laboratorio: q
 - **Qué propuso el agente:** implementar `completar` recorriendo la lista, poniendo `hecha = True` en la tarea con ese id, devolviéndola; si no existe, `ValueError(f"No existe la tarea {id_tarea}")`. Sin tocar los tests.
 - **Decisión:** aceptado. Es la implementación mínima que cumple las dos reglas del docstring y el contrato de devolver la tarea.
 - **Cómo lo verifiqué:** `python -m pytest` da `11 passed` (8 de `agregar` + 3 de `completar`), sin modificar ningún test.
+
+## Entrada 5
+
+- **Fecha:** 2026-11-21 12:21
+- **Paso del laboratorio:** RED de `eliminar`
+- **Prompt clave (literal):**
+  > corre todos los test antes de pasar a la siguiente etapa y crea otro registro en @ai-log.md
+- **Qué propuso el agente:** tres tests en `test_tareas.py`: `test_eliminar_quita_la_tarea_y_la_devuelve`, `test_eliminar_tarea_inexistente_da_error` (mensaje `"No existe la tarea 7"` y lista intacta) y `test_eliminar_no_cambia_los_ids_de_las_demas`.
+- **Decisión:** aceptado. Cubren las dos reglas del docstring y el contrato de quitar y devolver la tarea. No se implementa `eliminar` todavía: se detuvo el paso aquí.
+- **Cómo lo verifiqué:** `python -m pytest` da `3 failed, 11 passed`; los tres tests nuevos fallan con `NotImplementedError` (RED) y los anteriores siguen en verde.
+
+## Entrada 6
+
+- **Fecha:** 2026-11-21 12:25
+- **Paso del laboratorio:** GREEN de `eliminar`
+- **Prompt clave (literal):**
+  > sigamos con la implementación de eliminar
+- **Qué propuso el agente:** implementar `eliminar` recorriendo la lista, quitando con `pop` la tarea con ese id y devolviéndola; si no existe, `ValueError(f"No existe la tarea {id_tarea}")`. Sin tocar los tests.
+- **Decisión:** ajustado. La implementación se acepta, pero se agrega al flujo hacer un commit después de cada implementación de función (por eso hay un commit para `completar` y otro para `eliminar`).
+- **Cómo lo verifiqué:** `python -m pytest` da `14 passed` (8 de `agregar` + 3 de `completar` + 3 de `eliminar`), sin modificar ningún test.

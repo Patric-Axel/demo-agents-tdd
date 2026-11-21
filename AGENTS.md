@@ -22,6 +22,7 @@ Gestor de tareas (laboratorio). Python 3.10+ con pytest.
 - Al escribir solo tests, seguir el orden `completar` → `eliminar` → `editar`, con un test por cada regla del docstring.
 - Correr `python -m pytest` tras cada función y confirmar el fallo esperado (`NotImplementedError`) antes de seguir.
 - Pedir aprobación del usuario antes de escribir los tests de la siguiente función.
+- Hacer un commit después de implementar cada función (tests e implementación juntos).
 - Reescribir `ai-log.md` en cada paso con fecha y hora, paso, prompt clave, propuesta, decisión y verificación.
 - `agregar` ya funciona y es el modelo; `completar`, `eliminar` y `editar` lanzan `NotImplementedError`.
 - `editar` comparte las reglas de título de `agregar`: extrae la validación a una sola función (paso REFACTOR).
