@@ -17,7 +17,26 @@ Esta bitácora registra cómo trabajaste con el agente durante el laboratorio: q
 - **Fecha:** 2026-11-21 12:05
 - **Paso del laboratorio:** plan
 - **Prompt clave (literal):**
-  > Vamos a implementar los tests de las funciones completar, eliminar y editar ... se realizará en el orden indicado ... antes de implementar los test de la siguiente función pedir mi aprobación.
+  > Vamos a implementar los tests de las funciones
+  > - def completar(tareas, id_tarea):
+  > - def eliminar(tareas, id_tarea):
+  > - def editar(tareas, id_tarea, titulo):
+  > que están en el archivo @tareas.py
+
+>Restricciones:
+>- se realizará en el orden indicado 
+>- Respeta la reglas que está comentado en el docstring de cada función al crear los test.
+>- correr los test 
+>- antes de implementar los test de la siguiente función pedir mi aprobación.
+>- Al finalizar los test de cada función vamos a reescribir @ai-log.md. 
+  >  1.el registro de fecha y hora. 
+  >  2.paso del laboratorio.
+  >  3.promt clave, tu propuesta. 
+  >  4.mi decisión.
+  >  5.cómo lo verifiqué.
+
+>Seguir el formato del ejemplo 1 del archivo @ai-log.md si necesitas preguntarme algo para realizar el registro, hazlo, agrega este prompt en el @AGENTS.md.
+
 - **Qué propuso el agente:** plan TDD función por función (`completar` → `eliminar` → `editar`), un test por cada regla del docstring, correr `python -m pytest`, pedir aprobación antes de la siguiente función y registrar cada paso en `ai-log.md`.
 - **Decisión:** ajustado. Se aclaró que "guardar" significa reescribir `ai-log.md` según el avance, que en `AGENTS.md` se agregan las reglas de flujo resumidas y que la decisión se pide en cada aprobación. Luego se aprobó empezar por `completar`.
 - **Cómo lo verifiqué:** revisé que cada test propuesto correspondiera a una regla del docstring y que el plan no tocara `servidor.py`, `almacen.py` ni agregara dependencias.
