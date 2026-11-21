@@ -7,7 +7,7 @@ antes de implementar cada función.
 
 import pytest
 
-from tareas import agregar
+from tareas import agregar, completar
 
 
 def test_agregar_devuelve_la_tarea_y_la_pone_al_final():
@@ -64,3 +64,25 @@ def test_agregar_la_tarea_nueva_empieza_sin_hacer():
     tareas = [{"id": 1, "titulo": "Estudiar", "hecha": True}]
     tarea = agregar(tareas, "Leer")
     assert tarea["hecha"] is False
+
+
+def test_completar_marca_la_tarea_y_la_devuelve():
+    tareas = [{"id": 1, "titulo": "Estudiar", "hecha": False}]
+    tarea = completar(tareas, 1)
+    assert tarea == {"id": 1, "titulo": "Estudiar", "hecha": True}
+    assert tareas[0] == tarea
+    assert tarea["hecha"] is True
+
+
+def test_completar_tarea_inexistente_da_error():
+    tareas = [{"id": 1, "titulo": "Estudiar", "hecha": False}]
+    with pytest.raises(ValueError, match="No existe la tarea 7"):
+        completar(tareas, 7)
+    assert tareas == [{"id": 1, "titulo": "Estudiar", "hecha": False}]
+
+
+def test_completar_una_tarea_ya_hecha_no_da_error():
+    tareas = [{"id": 1, "titulo": "Estudiar", "hecha": True}]
+    tarea = completar(tareas, 1)
+    assert tarea == {"id": 1, "titulo": "Estudiar", "hecha": True}
+    assert tareas[0]["hecha"] is True

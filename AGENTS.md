@@ -19,6 +19,10 @@ Gestor de tareas (laboratorio). Python 3.10+ con pytest.
 ## Flujo de trabajo
 
 - TDD, una función a la vez: tests que fallan (RED), implementación (GREEN), commit por función.
+- Al escribir solo tests, seguir el orden `completar` → `eliminar` → `editar`, con un test por cada regla del docstring.
+- Correr `python -m pytest` tras cada función y confirmar el fallo esperado (`NotImplementedError`) antes de seguir.
+- Pedir aprobación del usuario antes de escribir los tests de la siguiente función.
+- Reescribir `ai-log.md` en cada paso con fecha y hora, paso, prompt clave, propuesta, decisión y verificación.
 - `agregar` ya funciona y es el modelo; `completar`, `eliminar` y `editar` lanzan `NotImplementedError`.
 - `editar` comparte las reglas de título de `agregar`: extrae la validación a una sola función (paso REFACTOR).
 - Actualiza `ai-log.md` con una entrada por cada paso del laboratorio.

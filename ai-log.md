@@ -1,31 +1,43 @@
 # Bitácora de IA
 
-Esta bitácora registra cómo trabajaste con el agente durante el laboratorio: qué le pediste, qué propuso, qué decidiste y cómo lo comprobaste. No se evalúa cuánto código escribió la IA, sino tu criterio: por qué aceptaste, rechazaste o ajustaste cada propuesta. Agrega una entrada por cada paso del laboratorio y otra cada vez que deshagas un cambio del agente.
+Esta bitácora registra cómo trabajaste con el agente durante el laboratorio: qué le pediste, qué propuso, qué decidiste y cómo lo comprobaste. No se evalúa cuánto código escribió la IA, sino tu criterio: por qué aceptaste, rechazaste o ajustaste cada propuesta.
 
-## Plantilla
+## Entrada 1
 
-Copia este bloque para cada entrada nueva:
-
-```markdown
-### Entrada N
-
-- **Fecha:** AAAA-MM-DD
-- **Paso del laboratorio:** (por ejemplo: memoria del proyecto, plan, RED de completar, GREEN de completar, refactor)
+- **Fecha:** 2026-11-21 11:50
+- **Paso del laboratorio:** memoria del proyecto (`AGENTS.md`)
 - **Prompt clave (literal):**
-  > Pega aquí el prompt exacto que usaste.
-- **Qué propuso el agente:** resumen en una o dos líneas.
-- **Decisión:** aceptado / rechazado / ajustado. Por qué: ...
-- **Cómo lo verifiqué:** tests (`python -m pytest`), navegador (`python servidor.py`), lectura del cambio...
-```
+  > Create or update `AGENTS.md` for this repository.
+- **Qué propuso el agente:** un `AGENTS.md` compacto en español con comandos (`python -m pytest`, `python servidor.py`), reglas (no tocar `servidor.py` ni `almacen.py`, solo biblioteca estándar, mensajes de error exactos, nunca cambiar un test para que pase), flujo TDD, contratos de retorno y convenciones de tests.
+- **Decisión:** aceptado. Se mantuvieron solo los datos que el agente no puede deducir leyendo el código; se descartaron descripciones archivo por archivo y consejos genéricos.
+- **Cómo lo verifiqué:** leí el archivo completo y confirmé que los comandos que menciona existen en `README.md`.
 
-## Ejemplo
+## Entrada 2
 
-### Entrada 1
-
-- **Fecha:** el día del laboratorio
-- **Paso del laboratorio:** memoria del proyecto (`/init`)
+- **Fecha:** 2026-11-21 12:05
+- **Paso del laboratorio:** plan
 - **Prompt clave (literal):**
-  > /init
-- **Qué propuso el agente:** creó `AGENTS.md` con un resumen del proyecto, cómo ejecutarlo y una descripción de los archivos.
-- **Decisión:** ajustado. Quité la descripción archivo por archivo, porque el agente la puede deducir leyendo el código. Agregué lo que no puede adivinar: que `servidor.py` y `almacen.py` no se modifican, que los mensajes de error deben ser exactamente los del docstring y que nunca se cambia un test solo para que pase.
-- **Cómo lo verifiqué:** leí el archivo completo antes de guardarlo y comprobé que los comandos que menciona funcionan: `python -m pytest` pasa los tests de `agregar` y `python servidor.py` abre la página.
+  > Vamos a implementar los tests de las funciones completar, eliminar y editar ... se realizará en el orden indicado ... antes de implementar los test de la siguiente función pedir mi aprobación.
+- **Qué propuso el agente:** plan TDD función por función (`completar` → `eliminar` → `editar`), un test por cada regla del docstring, correr `python -m pytest`, pedir aprobación antes de la siguiente función y registrar cada paso en `ai-log.md`.
+- **Decisión:** ajustado. Se aclaró que "guardar" significa reescribir `ai-log.md` según el avance, que en `AGENTS.md` se agregan las reglas de flujo resumidas y que la decisión se pide en cada aprobación. Luego se aprobó empezar por `completar`.
+- **Cómo lo verifiqué:** revisé que cada test propuesto correspondiera a una regla del docstring y que el plan no tocara `servidor.py`, `almacen.py` ni agregara dependencias.
+
+## Entrada 3
+
+- **Fecha:** 2026-11-21 12:10
+- **Paso del laboratorio:** RED de `completar`
+- **Prompt clave (literal):**
+  > Paso de laboratorio RED de completar , implementemos los test de completar
+- **Qué propuso el agente:** tres tests en `test_tareas.py`: `test_completar_marca_la_tarea_y_la_devuelve`, `test_completar_tarea_inexistente_da_error` (mensaje `"No existe la tarea 7"` y lista intacta) y `test_completar_una_tarea_ya_hecha_no_da_error`.
+- **Decisión:** aceptado. Cubren las dos reglas del docstring y el contrato de modificar la lista en sitio y devolver la tarea.
+- **Cómo lo verifiqué:** `python -m pytest` da `3 failed, 8 passed`; los tres tests nuevos fallan con `NotImplementedError` (RED) y los de `agregar` siguen en verde.
+
+## Entrada 4
+
+- **Fecha:** 2026-11-21 12:17
+- **Paso del laboratorio:** GREEN de `completar`
+- **Prompt clave (literal):**
+  > ajustemos el flujo. implementemos ahora la función en @tareas.py sin modificar los test ya aprobados. Posteriormente correr todos los test y pedir mi aprobación para pasar a los siguientes funcion. el flujo se repetirá en las siguientes tareas, implementar test -> correr -> verifico -> apruebo -> implementamos la funcion -> apruebo y continuamos.
+- **Qué propuso el agente:** implementar `completar` recorriendo la lista, poniendo `hecha = True` en la tarea con ese id, devolviéndola; si no existe, `ValueError(f"No existe la tarea {id_tarea}")`. Sin tocar los tests.
+- **Decisión:** aceptado. Es la implementación mínima que cumple las dos reglas del docstring y el contrato de devolver la tarea.
+- **Cómo lo verifiqué:** `python -m pytest` da `11 passed` (8 de `agregar` + 3 de `completar`), sin modificar ningún test.
